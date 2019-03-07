@@ -14,7 +14,7 @@ class Api::V1::GamesController < ApplicationController
     end
 
     def top_10
-        render json: Game.order(distance: :desc).limit(10).order(avg_velocity: :desc)
+        render json: Game.order(avg_velocity: :desc).limit(10)
     end
 
     private
