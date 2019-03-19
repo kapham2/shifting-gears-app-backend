@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-    skip_before_action :authorized, only: [:create]
+    skip_before_action :authorized, only: [:create, :top_10_games]
     
     def index
         render json: User.all
@@ -17,6 +17,10 @@ class Api::V1::UsersController < ApplicationController
         else
             render json: { error: 'Failed to create user' }, status: :not_acceptable
         end
+    end
+
+    def top_10_games
+        render json: current_user.games.order(avg_velocity: :desc).limit(10)
     end
 
     private
